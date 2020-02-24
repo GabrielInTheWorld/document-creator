@@ -1,0 +1,33 @@
+#document {
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.64);
+}
+
+#toolbar {
+    position: sticky;
+    top: 0;
+    height: 60px;
+    background-color: whitesmoke;
+    /* color: white; */
+    /* background-color: black; */
+}
+
+#source {
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    height: calc(100vh - 165px);
+    /* width: 100%; */
+    background-color: white;
+    margin: auto;
+    border: none;
+    outline: none;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    background-color: whitesmoke;
+    height: 20px;
+    width: 100%;
+}

@@ -7,7 +7,7 @@ export default class AuthHandler extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: ''
+            token: {}
         };
     }
 
@@ -22,25 +22,32 @@ export default class AuthHandler extends React.Component {
     requestToken = () => {
         axios.post(this.getServerUrl('/login'), { username: 'admin', password: 'admin' }).then(answer => {
             console.log('secure answer', answer);
-            this.setState({ token: answer.data.token });
+            this.setState({ token: { token: answer.data.token, expiry: answer.data.expiry } });
         });
     };
 
     getProtectedResources = () => {
         axios
-            .get(this.getServerUrl('/api/hello'), { headers: { 'x-access-token': this.state.token } })
+            .get(this.getServerUrl('/api/hello'), { headers: { 'x-access-token': this.state.token.token } })
             .then(answer => console.log('answer from protected resources:', answer));
     };
 
+    getOAuthToken = () => {};
+
+    getOAuthProtectedResources = () => {};
+
     render() {
-        const { token } = this.state;
+        const { token } = this.state.token;
         return (
             <div>
                 <div>{token}</div>
                 <div>
                     <button onClick={this.sayHello}>Say hello</button>
                     <button onClick={this.requestToken}>Request token</button>
-                    <button onClick={this.getProtectedResources}>Call protected resources</button>
+                    {token ? <button onClick={this.getProtectedResources}>Call protected resources</button> : null}
+
+                    <button onClick={this.getOAuthToken}>Get OAuth token</button>
+                    <button onClick={this.getOAuthProtectedResources}>Get OAuth protected resource</button>
                 </div>
             </div>
         );
